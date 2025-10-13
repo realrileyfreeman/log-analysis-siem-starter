@@ -1,7 +1,7 @@
 Log Analysis — SIEM Starter
 
 Projet personnel : analyse de logs (syslog et Apache) développée pour mon portfolio.
-Réalisé par : [Ton Nom]
+Réalisé par : Omar Camara
 
 Objectif
 Je pars d’un jeu de logs, j’automatise le parsing pour extraire des indicateurs utiles en détection (tentatives SSH échouées, erreurs HTTP, top IPs) et je produis des exports CSV + un résumé texte. L’idée : démontrer la chaîne complète (collecte → parsing → indicateurs → export).
@@ -12,7 +12,7 @@ Fonctionnalités principales
 - Exports générés : events.csv, top_ips.csv, summary.txt.
 
 Comment exécuter
-1) Créer un environnement Python (recommendé) :
+1) Créer un environnement Python :
    python -m venv venv
    source venv/bin/activate
 
