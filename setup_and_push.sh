@@ -7,16 +7,17 @@ REPO_NAME="$2"
 LOCAL_DIR="${HOME}/projects/${REPO_NAME}"
 REPO_DESC="Projet personnel — Log Analysis (parsing de logs, détections basiques, exports CSV)"
 
-if [ -z "${GITHUB_USER}" ] || [ -z "${REPO_NAME}" ]; then
-  echo "Usage: $0 GITHUB_USERNAME REPO_NAME"
-  exit 1
-fi
-# README (texte brut, à la 1ère personne)
+cho
+echo "== Création du dossier local et des fichiers de base =="
+mkdir -p "${LOCAL_DIR}"
+cd "${LOCAL_DIR}"
+
+# README
 cat > README.md <<'EOF'
 Log Analysis — SIEM Starter
 
 Projet personnel : analyse de logs (syslog et Apache) développée pour mon portfolio.
-Réalisé par : [Ton Nom]
+Réalisé par : Omar Camara
 
 Objectif
 Je pars d’un jeu de logs, j’automatise le parsing pour extraire des indicateurs utiles en détection (tentatives SSH échouées, erreurs HTTP, top IPs) et je produis des exports CSV + un résumé texte. L’idée : démontrer la chaîne complète (collecte → parsing → indicateurs → export).
@@ -27,7 +28,7 @@ Fonctionnalités principales
 - Exports générés : events.csv, top_ips.csv, summary.txt.
 
 Comment exécuter
-1) Créer un environnement Python (recommendé) :
+1) Créer un environnement Python :
    python -m venv venv
    source venv/bin/activate
 
@@ -40,6 +41,7 @@ Comment exécuter
 Remarques
 - C’est un projet d’entraînement / portfolio. Aucune action offensive n’est incluse : tout est en lecture et analyse de logs.
 EOF
+
 # create minimal parse_logs.py if missing
 if [ ! -f parse_logs.py ]; then
   cat > parse_logs.py <<'PYEOF'
@@ -77,6 +79,7 @@ if __name__=='__main__':
 PYEOF
   chmod +x parse_logs.py
 fi
+
 # sample logs + small extras
 cat > sample_logs.log <<'LOGS'
 Oct 13 12:00:01 host1 sshd[1234]: Failed password for invalid user admin from 198.51.100.23 port 45213 ssh2
