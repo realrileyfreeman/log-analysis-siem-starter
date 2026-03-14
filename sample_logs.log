@@ -1,2 +1,52 @@
+# ── Legitimate traffic ────────────────────────────────────────────
+127.0.0.1 - - [13/Oct/2025:12:05:01 +0200] "GET /index.html HTTP/1.1" 200 512 "-" "Mozilla/5.0 (X11; Linux x86_64)"
+10.0.0.5 - - [13/Oct/2025:12:05:02 +0200] "GET /about.html HTTP/1.1" 200 1024 "-" "Mozilla/5.0 (Windows NT 10.0)"
+10.0.0.5 - - [13/Oct/2025:12:05:03 +0200] "GET /contact.html HTTP/1.1" 200 768 "-" "Mozilla/5.0 (Windows NT 10.0)"
+10.0.0.5 - - [13/Oct/2025:12:05:04 +0200] "POST /api/search HTTP/1.1" 200 340 "-" "Mozilla/5.0 (Windows NT 10.0)"
+
+# ── Auth failure ───────────────────────────────────────────────────
+198.51.100.23 - - [13/Oct/2025:12:05:05 +0200] "GET /admin HTTP/1.1" 401 142 "-" "curl/7.68.0"
+
+# ── rrf_nemesis — Nemesis Scanner (UA signature) ───────────────────
+192.168.56.101 - - [13/Oct/2025:12:10:00 +0200] "GET / HTTP/1.1" 200 1024 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:10:01 +0200] "GET /robots.txt HTTP/1.1" 200 64 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:10:02 +0200] "GET /sitemap.xml HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:10:03 +0200] "GET /server-status HTTP/1.1" 403 289 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+
+# ── rrf_nemesis — XSS Fuzzing ──────────────────────────────────────
+192.168.56.101 - - [13/Oct/2025:12:11:00 +0200] "GET /search?q=%3Cscript%3Ealert%28%27NEMESIS_XSS%27%29%3C%2Fscript%3E HTTP/1.1" 200 512 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:11:01 +0200] "POST /comment HTTP/1.1" 200 128 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+
+# ── rrf_nemesis — SQLi Fuzzing ─────────────────────────────────────
+192.168.56.101 - - [13/Oct/2025:12:12:00 +0200] "GET /login?user=%27+OR+%271%27%3D%271 HTTP/1.1" 200 512 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:12:01 +0200] "GET /product?id=1+UNION+SELECT+null%2Cnull%2Cnull-- HTTP/1.1" 500 1024 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+
+# ── rrf_nemesis — Directory Bruteforce (14 x 404/403 → correlation) ─
+192.168.56.101 - - [13/Oct/2025:12:13:00 +0200] "GET /wp-admin HTTP/1.1" 404 234 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:01 +0200] "GET /wp-login.php HTTP/1.1" 404 234 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:02 +0200] "GET /.env HTTP/1.1" 403 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:03 +0200] "GET /config.php HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:04 +0200] "GET /backup.zip HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:05 +0200] "GET /phpmyadmin HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:06 +0200] "GET /adminer.php HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:07 +0200] "GET /shell.php HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:08 +0200] "GET /uploads/cmd.php HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:09 +0200] "GET /api/v1/users HTTP/1.1" 403 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:10 +0200] "GET /xmlrpc.php HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:11 +0200] "GET /git/.git/HEAD HTTP/1.1" 403 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:12 +0200] "GET /.htaccess HTTP/1.1" 403 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+192.168.56.101 - - [13/Oct/2025:12:13:13 +0200] "GET /debug HTTP/1.1" 404 0 "-" "Nemesis-Security-Scanner/2.0 (Educational)"
+
+# ── Generic web attacks (non-Nemesis) ─────────────────────────────
+203.0.113.5 - - [13/Oct/2025:12:20:00 +0200] "GET /page?id=1+UNION+SELECT+password+FROM+users-- HTTP/1.1" 200 1024 "-" "sqlmap/1.7"
+203.0.113.5 - - [13/Oct/2025:12:20:01 +0200] "GET /search?q=<script>alert(1)</script> HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+203.0.113.5 - - [13/Oct/2025:12:20:02 +0200] "GET /../../etc/passwd HTTP/1.1" 400 0 "-" "Mozilla/5.0"
+203.0.113.5 - - [13/Oct/2025:12:20:03 +0200] "POST /login HTTP/1.1" 500 1024 "-" "curl/7.68.0"
+
+# ── SSH brute-force (Syslog) ───────────────────────────────────────
 Oct 13 12:00:01 host1 sshd[1234]: Failed password for invalid user admin from 198.51.100.23 port 45213 ssh2
-127.0.0.1 - - [13/Oct/2025:12:05:01 +0200] "GET /index.html HTTP/1.1" 200 512
+Oct 13 12:00:03 host1 sshd[1235]: Failed password for invalid user admin from 198.51.100.23 port 45214 ssh2
+Oct 13 12:00:04 host1 sshd[1236]: Failed password for invalid user root from 203.0.113.5 port 33445 ssh2
+Oct 13 12:00:06 host1 sshd[1237]: Failed password for invalid user admin from 198.51.100.23 port 45215 ssh2
+Oct 13 12:00:07 host1 sshd[1238]: Failed password for invalid user guest from 198.51.100.23 port 45216 ssh2
+Oct 13 12:00:08 host1 sshd[1239]: Failed password for invalid user test from 198.51.100.23 port 45217 ssh2
