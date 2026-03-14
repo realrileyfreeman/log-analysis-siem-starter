@@ -9,12 +9,12 @@ Portfolio Master Cybersécurité — Projet Purple Team
 
 FR — Ce projet constitue le **volet défensif (Blue Team)** d'un exercice Purple Team.
 Il est conçu pour analyser et détecter les traces laissées par l'outil offensif
-**[rrf_nemesis](https://github.com/RRF-cyber/rrf_nemesis)** (Red Team), tout en restant
+**[rrf_nemesis](https://github.com/realrileyfreeman/rrf_nemesis)** (Red Team), tout en restant
 un moteur de détection générique applicable à n'importe quelle source de logs.
 
 EN — This project is the **defensive (Blue Team) component** of a Purple Team exercise.
 It is built to analyze and detect traces left by the offensive tool
-**[rrf_nemesis](https://github.com/RRF-cyber/rrf_nemesis)** (Red Team), while remaining
+**[rrf_nemesis](https://github.com/realrileyfreeman/rrf_nemesis)** (Red Team), while remaining
 a generic detection engine applicable to any log source.
 
 ---
